@@ -3,7 +3,7 @@
 ## Опис
 Практична робота №2: NestJS застосунок з підключенням PostgreSQL та Redis через Docker Compose.
 
-## 🚀 Запуск проєкту
+## Запуск проєкту
 
 ```docker compose up --build```
 
