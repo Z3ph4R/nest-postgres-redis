@@ -10,7 +10,7 @@
 ## Вправа 2 — docker compose ps
 
 ```docker compose ps```
-
+```
 Container postgres Healthy
 Container redis Healthy
 app-1     | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [NestFactory] Starting Nest application...
@@ -20,11 +20,11 @@ app-1     | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [InstanceLoader] AppModul
 app-1     | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [InstanceLoader] ConfigModule dependencies initialized +0ms
 app-1     | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [InstanceLoader] ConfigModule dependencies initialized +0ms
 app-1     | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [InstanceLoader] CacheModule dependencies initialized +32ms       app-1     | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [InstanceLoader] TypeOrmCoreModule dependencies initialized +34ms app-1     | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [RoutesResolver] AppController {/}: +2ms                          app-1     | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [RouterExplorer] Mapped {/, GET} route +2ms                       app-1     | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [NestApplication] Nest application successfully started +2ms
-
+```
 ## Вправа 3 — Hello World
 
 ```curl http://localhost:3000```
-
+```
 StatusCode        : 200
 StatusDescription : OK
 Content           : Hello World!
@@ -43,11 +43,11 @@ InputFields       : {}
 Links             : {}
 ParsedHtml        : System.__ComObject
 RawContentLength  : 12
-
+```
 ## Вправа 4 — Успішна ініціалізація TypeORM
 
 ```docker compose logs app --tail 30```
-
+```
 app-1  | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [NestFactory] Starting Nest application...
 app-1  | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [InstanceLoader] TypeOrmModule dependencies initialized +7ms
 app-1  | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [InstanceLoader] ConfigHostModule dependencies initialized +0ms
@@ -59,7 +59,7 @@ app-1  | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [InstanceLoader] TypeOrmCore
 app-1  | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [RoutesResolver] AppController {/}: +2ms
 app-1  | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [RouterExplorer] Mapped {/, GET} route +2ms
 app-1  | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [NestApplication] Nest application successfully started +2ms
-
+```
 ## Вправа 5 — Redis Cache
 
 У файлі ```src/app.module.ts``` підключено:
@@ -111,7 +111,7 @@ export class AppModule {}
 ## Вправа 6 — Перевірка баз даних
 
 PostgreSQL: ```docker compose exec postgres psql -U postgres -c "\l"```
-
+```
                                                      List of databases
    Name    |  Owner   | Encoding | Locale Provider |  Collate   |   Ctype    | ICU Locale | ICU Rules |   Access privileges
 -----------+----------+----------+-----------------+------------+------------+------------+-----------+-----------------------
@@ -122,7 +122,7 @@ PostgreSQL: ```docker compose exec postgres psql -U postgres -c "\l"```
  template1 | postgres | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           | =c/postgres          +
            |          |          |                 |            |            |            |           | postgres=CTc/postgres
 (4 rows)
-
+```
 Redis: ```docker compose exec redis redis-cli ping```
 
 ```PONG```
