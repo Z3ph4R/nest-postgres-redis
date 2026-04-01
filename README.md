@@ -1,98 +1,128 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# NestJS + PostgreSQL + Redis у Docker
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Опис
+Практична робота №2: NestJS застосунок з підключенням PostgreSQL та Redis через Docker Compose.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 🚀 Запуск проєкту
 
-## Description
+```docker compose up --build```
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Вправа 2 — docker compose ps
 
-## Project setup
+```docker compose ps```
 
-```bash
-$ npm install
+Container postgres Healthy
+Container redis Healthy
+app-1     | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [NestFactory] Starting Nest application...
+app-1     | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [InstanceLoader] TypeOrmModule dependencies initialized +7ms
+app-1     | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [InstanceLoader] ConfigHostModule dependencies initialized +0ms
+app-1     | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [InstanceLoader] AppModule dependencies initialized +1ms
+app-1     | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [InstanceLoader] ConfigModule dependencies initialized +0ms
+app-1     | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [InstanceLoader] ConfigModule dependencies initialized +0ms
+app-1     | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [InstanceLoader] CacheModule dependencies initialized +32ms       app-1     | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [InstanceLoader] TypeOrmCoreModule dependencies initialized +34ms app-1     | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [RoutesResolver] AppController {/}: +2ms                          app-1     | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [RouterExplorer] Mapped {/, GET} route +2ms                       app-1     | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [NestApplication] Nest application successfully started +2ms
+
+## Вправа 3 — Hello World
+
+```curl http://localhost:3000```
+
+StatusCode        : 200
+StatusDescription : OK
+Content           : Hello World!
+RawContent        : HTTP/1.1 200 OK
+                    Connection: keep-alive
+                    Keep-Alive: timeout=5
+                    Content-Length: 12
+                    Content-Type: text/html; charset=utf-8
+                    Date: Wed, 01 Apr 2026 14:52:39 GMT
+                    ETag: W/"c-Lve95gjOVATpfV8EL5X4nxwjKHE"...
+Forms             : {}
+Headers           : {[Connection, keep-alive], [Keep-Alive, timeout=5], [Content-Length, 12], [Content-Type, text/html;
+                    charset=utf-8]...}
+Images            : {}
+InputFields       : {}
+Links             : {}
+ParsedHtml        : System.__ComObject
+RawContentLength  : 12
+
+## Вправа 4 — Успішна ініціалізація TypeORM
+
+```docker compose logs app --tail 30```
+
+app-1  | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [NestFactory] Starting Nest application...
+app-1  | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [InstanceLoader] TypeOrmModule dependencies initialized +7ms
+app-1  | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [InstanceLoader] ConfigHostModule dependencies initialized +0ms
+app-1  | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [InstanceLoader] AppModule dependencies initialized +1ms
+app-1  | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [InstanceLoader] ConfigModule dependencies initialized +0ms
+app-1  | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [InstanceLoader] ConfigModule dependencies initialized +0ms
+app-1  | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [InstanceLoader] CacheModule dependencies initialized +32ms
+app-1  | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [InstanceLoader] TypeOrmCoreModule dependencies initialized +34ms
+app-1  | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [RoutesResolver] AppController {/}: +2ms
+app-1  | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [RouterExplorer] Mapped {/, GET} route +2ms
+app-1  | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [NestApplication] Nest application successfully started +2ms
+
+## Вправа 5 — Redis Cache
+
+У файлі ```src/app.module.ts``` підключено:
 ```
+import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { CacheModule } from '@nestjs/cache-manager';
+import * as redisStore from 'cache-manager-redis-yet';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
-## Compile and run the project
+@Module({
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
 
-```bash
-# development
-$ npm run start
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        type: 'postgres',
+        host: configService.get<string>('DB_HOST'),
+        port: configService.get<number>('DB_PORT'),
+        username: configService.get<string>('DB_USERNAME'),
+        password: configService.get<string>('DB_PASSWORD'),
+        database: configService.get<string>('DB_DATABASE'),
+        autoLoadEntities: true,
+        synchronize: true,
+      }),
+    }),
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+    CacheModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        isGlobal: true,
+        store: redisStore,
+        url: `redis://${configService.get<string>('REDIS_HOST')}:${configService.get<number>('REDIS_PORT')}`,
+      }),
+    }),
+  ],
+  controllers: [AppController],
+  providers: [AppService],
+})
+export class AppModule {}
 ```
+## Вправа 6 — Перевірка баз даних
 
-## Run tests
+PostgreSQL: ```docker compose exec postgres psql -U postgres -c "\l"```
 
-```bash
-# unit tests
-$ npm run test
+                                                     List of databases
+   Name    |  Owner   | Encoding | Locale Provider |  Collate   |   Ctype    | ICU Locale | ICU Rules |   Access privileges
+-----------+----------+----------+-----------------+------------+------------+------------+-----------+-----------------------
+ nestdb    | postgres | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           |
+ postgres  | postgres | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           |
+ template0 | postgres | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           | =c/postgres          +
+           |          |          |                 |            |            |            |           | postgres=CTc/postgres
+ template1 | postgres | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           | =c/postgres          +
+           |          |          |                 |            |            |            |           | postgres=CTc/postgres
+(4 rows)
 
-# e2e tests
-$ npm run test:e2e
+Redis: ```docker compose exec redis redis-cli ping```
 
-# test coverage
-$ npm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+```PONG```
