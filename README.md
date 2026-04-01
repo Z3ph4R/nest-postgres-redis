@@ -5,11 +5,11 @@
 
 ## Запуск проєкту
 
-```docker compose up --build```
+Команда:```docker compose up --build```
 
 ## Вправа 2 — docker compose ps
 
-```docker compose ps```
+Команда:```docker compose ps```
 ```
 Container postgres Healthy
 Container redis Healthy
@@ -23,7 +23,7 @@ app-1     | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [InstanceLoader] CacheMod
 ```
 ## Вправа 3 — Hello World
 
-```curl http://localhost:3000```
+Команда:```curl http://localhost:3000```
 ```
 StatusCode        : 200
 StatusDescription : OK
@@ -46,7 +46,7 @@ RawContentLength  : 12
 ```
 ## Вправа 4 — Успішна ініціалізація TypeORM
 
-```docker compose logs app --tail 30```
+Команда:```docker compose logs app --tail 30```
 ```
 app-1  | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [NestFactory] Starting Nest application...
 app-1  | [Nest] 1  - 04/01/2026, 2:49:50 PM     LOG [InstanceLoader] TypeOrmModule dependencies initialized +7ms
