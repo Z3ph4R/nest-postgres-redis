@@ -5,6 +5,16 @@ import { CacheModule } from '@nestjs/cache-manager';
 import * as redisStore from 'cache-manager-redis-yet';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { CategoriesController } from './categories/categories.controller';
+import { CategoriesService } from './categories/categories.service';
+import { ProductsController } from './products/products.controller';
+import { ProductsService } from './products/products.service';
+
+@Module({
+  imports: [],
+  controllers: [CategoriesController, ProductsController],
+  providers: [CategoriesService, ProductsService],
+})
 
 @Module({
   imports: [
