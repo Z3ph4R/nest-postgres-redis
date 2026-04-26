@@ -126,3 +126,78 @@ PostgreSQL: ```docker compose exec postgres psql -U postgres -c "\l"```
 Redis: ```docker compose exec redis redis-cli ping```
 
 Вивід: ```PONG```
+
+## Практичне заняття №4 — DTO + class-validator + Pipes
+ 
+### Структура репозиторію
+```
+.
+├── src/
+│   ├── categories/
+│   │   ├── dto/
+│   │   │   ├── create-category.dto.ts
+│   │   │   └── update-category.dto.ts
+│   │   ├── category.entity.ts
+│   │   ├── categories.module.ts
+│   │   ├── categories.service.ts
+│   │   └── categories.controller.ts
+│   ├── products/
+│   │   ├── dto/
+│   │   │   ├── create-product.dto.ts
+│   │   │   └── update-product.dto.ts
+│   │   ├── product.entity.ts
+│   │   ├── products.module.ts
+│   │   ├── products.service.ts
+│   │   └── products.controller.ts
+│   ├── common/
+│   │   └── pipes/
+│   │   	└── trim.pipe.ts
+│   ├── migrations/
+│   ├── data-source.ts
+│   ├── main.ts
+│   └── app.module.ts
+├── Dockerfile
+├── docker-compose.yml
+└── README.md
+```
+ 
+### Запуск проекту
+```bash
+cp .env.example .env
+docker compose up --build
+```
+ 
+### Тест валідації — порожнє ім'я категорії
+```text
+<вивід curl POST /api/categories з {"name": ""}>
+```
+<img width="1123" height="966" alt="image" src="https://github.com/user-attachments/assets/123ec348-c02a-406f-9a54-0f8e9c377f98" />
+ 
+### Тест валідації — від'ємна ціна продукту
+```text
+<вивід curl POST /api/products з {"name": "Test", "price": -5}>
+```
+<img width="1173" height="1001" alt="image" src="https://github.com/user-attachments/assets/19c79da6-eb2e-4688-8c7a-af54e1713de8" />
+ 
+### Тест валідації — зайве поле
+```text
+<вивід curl POST /api/categories з {"name": "Test", "isAdmin": true}>
+```
+<img width="1187" height="1023" alt="image" src="https://github.com/user-attachments/assets/8aadaa45-6962-4f76-a978-17a2f7c125e4" />
+ 
+### Тест TrimPipe
+```text
+<вивід curl POST /api/categories з {"name": "  Trimmed  "}>
+```
+<img width="1171" height="895" alt="image" src="https://github.com/user-attachments/assets/5e9239b3-8dcd-4b1a-9955-86c2000e4223" />
+ 
+### Тест валідне створення продукту
+```text
+<вивід curl POST /api/products з валідними даними>
+```
+<img width="2232" height="1093" alt="Screenshot 2026-04-26 215100" src="https://github.com/user-attachments/assets/f9f37dea-afeb-4858-bf74-3b80c692ea4c" />
+
+
+
+
+
