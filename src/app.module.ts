@@ -9,12 +9,8 @@ import { CategoriesController } from './categories/categories.controller';
 import { CategoriesService } from './categories/categories.service';
 import { ProductsController } from './products/products.controller';
 import { ProductsService } from './products/products.service';
-
-@Module({
-  imports: [],
-  controllers: [CategoriesController, ProductsController],
-  providers: [CategoriesService, ProductsService],
-})
+import { UsersModule } from './users/users.module'; 
+import { AuthModule } from './auth/auth.module'; // <-- ДОДАНО
 
 @Module({
   imports: [
@@ -33,7 +29,7 @@ import { ProductsService } from './products/products.service';
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_DATABASE'),
         autoLoadEntities: true,
-        synchronize: true,
+        synchronize: true, // Поки що залишаємо true, щоб таблиці оновлювались автоматично
       }),
     }),
 
@@ -46,8 +42,10 @@ import { ProductsService } from './products/products.service';
         url: `redis://${configService.get<string>('REDIS_HOST')}:${configService.get<number>('REDIS_PORT')}`,
       }),
     }),
+    UsersModule,
+    AuthModule, // <-- ДОДАНО
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, CategoriesController, ProductsController],
+  providers: [AppService, CategoriesService, ProductsService],
 })
 export class AppModule {}
