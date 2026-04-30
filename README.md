@@ -227,7 +227,7 @@ docker compose up --build
 ## Скріншот 3:
 <img width="930" height="813" alt="Screenshot 2026-04-30 222422" src="https://github.com/user-attachments/assets/d85f99e7-8ca8-4905-8b19-6e774aa19232" />
 
-## 🐳 Інфраструктура
+## Інфраструктура
 Проєкт повністю розгорнутий у Docker:
 *   **App**: NestJS API
 *   **DB**: PostgreSQL
