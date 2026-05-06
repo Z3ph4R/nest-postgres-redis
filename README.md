@@ -235,6 +235,104 @@ docker compose up --build
 
 Для запуску: `docker compose up --build -d`
 
+## Практичне заняття №6 — Interceptors + Exception Filters + Swagger
+ 
+### Структура репозиторію
+```
+.
+├── src/
+│   ├── auth/ ...
+│   ├── users/ ...
+│   ├── categories/ ...
+│   ├── products/ ...
+│   ├── common/
+│   │   ├── enums/
+│   │   │   └── role.enum.ts
+│   │   ├── guards/
+│   │   │   ├── jwt-auth.guard.ts
+│   │   │   └── roles.guard.ts
+│   │   ├── decorators/
+│   │   │   ├── current-user.decorator.ts
+│   │   │   └── roles.decorator.ts
+│   │   ├── interceptors/
+│   │   │   ├── logging.interceptor.ts
+│   │   │   └── transform.interceptor.ts
+│   │   ├── filters/
+│   │   │   └── http-exception.filter.ts
+│   │   └── pipes/
+│   │   	└── trim.pipe.ts
+│   ├── migrations/
+│   ├── main.ts
+│   └── app.module.ts
+├── swagger-screenshot.png
+├── Dockerfile
+├── docker-compose.yml
+└── README.md
+```
+ 
+### Запуск проекту
+```bash
+cp .env.example .env
+docker compose up --build
+```
+ 
+### Swagger UI
+http://localhost:3000/api/docs
+ 
+<img width="3439" height="1389" alt="image" src="https://github.com/user-attachments/assets/514a2883-1079-4f9d-bb25-0d03fd14fbbd" />
+
+### Формат успішної відповіді
+```json
+{
+  "data": { ... },
+  "statusCode": 200,
+  "timestamp": "2025-01-15T10:30:00.000Z"
+}
+```
+ 
+### Формат помилки
+```json
+{
+  "error": {
+	"code": 400,
+	"message": "Validation failed",
+	"details": ["name must be longer..."],
+	"traceId": "a1b2c3..."
+  },
+  "timestamp": "2025-01-15T10:31:00.000Z"
+}
+```
+ 
+### Приклад логів (LoggingInterceptor)
+```text
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [InstanceLoader] TypeOrmModule dependencies initialized +0ms
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [InstanceLoader] UsersModule dependencies initialized +1ms
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [InstanceLoader] AuthModule dependencies initialized +0ms
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [RoutesResolver] AppController {/}: +31ms
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [RouterExplorer] Mapped {/, GET} route +4ms
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [RoutesResolver] CategoriesController {/categories}: +0ms
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [RouterExplorer] Mapped {/categories, POST} route +1ms
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [RouterExplorer] Mapped {/categories, GET} route +0ms
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [RoutesResolver] ProductsController {/api/products}: +1ms
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [RouterExplorer] Mapped {/api/products, POST} route +0ms
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [RouterExplorer] Mapped {/api/products, GET} route +0ms
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [RoutesResolver] AuthController {/auth}: +0ms
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [RouterExplorer] Mapped {/auth/register, POST} route +0ms
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [RouterExplorer] Mapped {/auth/login, POST} route +1ms
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [NestApplication] Nest application successfully started +2ms
+```
+ 
+### Тест помилки з traceId
+```text
+{
+  "error": {
+    "code": 404,
+    "message": "Product with ID 999 not found",
+    "traceId": "eff456-gh78-99"
+  },
+  "timestamp": "2026-05-06T17:40:12.000Z"
+}
+```
 
 
 
