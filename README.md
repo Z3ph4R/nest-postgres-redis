@@ -197,6 +197,43 @@ docker compose up --build
 ```
 <img width="2232" height="1093" alt="Screenshot 2026-04-26 215100" src="https://github.com/user-attachments/assets/f9f37dea-afeb-4858-bf74-3b80c692ea4c" />
 
+# Звіт про виконання практичної роботи: JWT-авторизація та безпека
+
+## Виконані завдання
+
+### 1. Реєстрація та безпека даних
+*   Реалізовано сутність `User` з ролями та автоматичним хешуванням паролів.
+*   Для безпечного збереження використано **bcrypt** (10 раундів солі).
+*   Паролі в базі даних зберігаються виключно у вигляді незворотних хешів.
+
+### 2. JWT-авторизація
+*   Налаштовано видачу токенів через `JwtModule`.
+*   Реалізовано `AuthService` для перевірки облікових даних (логін/пароль).
+*   Створено **`JwtAuthGuard`**, який блокує запити без валідного токена.
+
+### 3. Захист API (Controller Protection)
+*   Контролер продуктів (`ProductsController`) захищено на рівні класу префіксом `/api/products`.
+*   Доступ до ресурсів мають лише користувачі з валідним токеном.
+
+## Результати тестування (Скріншоти)
+
+## Скріншот 1:
+<img width="1536" height="342" alt="Screenshot 2026-04-30 222042" src="https://github.com/user-attachments/assets/c576a433-c3d6-42a5-975f-73c4d4afda3e" />
+
+## Скріншот 2:
+<img width="2021" height="983" alt="Screenshot 2026-04-30 222346" src="https://github.com/user-attachments/assets/ac5fffac-d78e-4aab-a44b-d00603d53397" />
+
+
+## Скріншот 3:
+<img width="930" height="813" alt="Screenshot 2026-04-30 222422" src="https://github.com/user-attachments/assets/d85f99e7-8ca8-4905-8b19-6e774aa19232" />
+
+## Інфраструктура
+Проєкт повністю розгорнутий у Docker:
+*   **App**: NestJS API
+*   **DB**: PostgreSQL
+*   **Cache**: Redis
+
+Для запуску: `docker compose up --build -d`
 
 
 
