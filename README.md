@@ -333,6 +333,58 @@ app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [NestApplication] Nest ap
   "timestamp": "2026-05-06T17:40:12.000Z"
 }
 ```
+## Student
+- Name: Михайлюк Валентин Валентинович
+- Group: 232/1
+ 
+## Практичне заняття №7 — Redis + Pagination + Filtering
+ 
+### Запуск проекту
+```bash
+cp .env.example .env
+docker compose up --build
+docker compose run --rm app npm run seed
+```
+ 
+### API: GET /api/products
+ 
+| Параметр | Тип | Default | Опис |
+|----------|-----|---------|------|
+| page | number | 1 | Номер сторінки |
+| pageSize | number | 10 | Елементів на сторінку (max 100) |
+| sort | string | createdAt | Поле сортування |
+| order | asc/desc | desc | Напрямок |
+| categoryId | number | - | Фільтр за категорією |
+| minPrice | number | - | Мінімальна ціна |
+| maxPrice | number | - | Максимальна ціна |
+| search | string | - | Пошук за назвою (ILIKE) |
+
+ 
+### Тест пагінації
+```text
+<img width="1372" height="150" alt="image" src="https://github.com/user-attachments/assets/c6e83a22-2734-47a9-b406-7da4eff1f5c2" />
+```
+ 
+### Тест фільтрації
+```text
+<img width="1363" height="82" alt="image" src="https://github.com/user-attachments/assets/9b9b6c67-a9ac-4e42-a87b-44d266ba9125" />
+```
+ 
+### Тест пошуку
+```text
+<img width="1365" height="67" alt="image" src="https://github.com/user-attachments/assets/cb5fc668-cd1a-4c44-a338-f23dbc858164" />
+```
+ 
+### Тест кешування (Redis)
+```text
+<img width="1359" height="37" alt="image" src="https://github.com/user-attachments/assets/5e12bf6a-1fab-4c88-b68b-3b9d316ff0b8" />
+```
+ 
+### Тест інвалідації кешу
+```text
+<img width="833" height="35" alt="image" src="https://github.com/user-attachments/assets/a98e3ea3-bcb1-4a14-af55-d1a305678344" />
+```
+
 
 
 
