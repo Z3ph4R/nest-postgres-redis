@@ -1,3 +1,4 @@
+<img width="1372" height="150" alt="Screenshot 2026-05-21 162919" src="https://github.com/user-attachments/assets/ddc4f606-a3b8-46ee-8543-dc0a1373dde4" />
 # NestJS + PostgreSQL + Redis у Docker
 
 ## Опис
@@ -362,7 +363,7 @@ docker compose run --rm app npm run seed
  
 ### Тест пагінації
 ```text
-<img width="1372" height="150" alt="image" src="https://github.com/user-attachments/assets/c6e83a22-2734-47a9-b406-7da4eff1f5c2" />
+<img width="1372" height="150" alt="Screenshot 2026-05-21 162919" src="https://github.com/user-attachments/assets/2d9ab0c3-83d3-4ae6-aaa2-ce4de6b29dd2" />
 ```
  
 ### Тест фільтрації
