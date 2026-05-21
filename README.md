@@ -1,3 +1,4 @@
+<img width="1372" height="150" alt="Screenshot 2026-05-21 162919" src="https://github.com/user-attachments/assets/ddc4f606-a3b8-46ee-8543-dc0a1373dde4" />
 # NestJS + PostgreSQL + Redis у Docker
 
 ## Опис
@@ -234,6 +235,152 @@ docker compose up --build
 *   **Cache**: Redis
 
 Для запуску: `docker compose up --build -d`
+
+## Практичне заняття №6 — Interceptors + Exception Filters + Swagger
+ 
+### Структура репозиторію
+```
+.
+├── src/
+│   ├── auth/ ...
+│   ├── users/ ...
+│   ├── categories/ ...
+│   ├── products/ ...
+│   ├── common/
+│   │   ├── enums/
+│   │   │   └── role.enum.ts
+│   │   ├── guards/
+│   │   │   ├── jwt-auth.guard.ts
+│   │   │   └── roles.guard.ts
+│   │   ├── decorators/
+│   │   │   ├── current-user.decorator.ts
+│   │   │   └── roles.decorator.ts
+│   │   ├── interceptors/
+│   │   │   ├── logging.interceptor.ts
+│   │   │   └── transform.interceptor.ts
+│   │   ├── filters/
+│   │   │   └── http-exception.filter.ts
+│   │   └── pipes/
+│   │   	└── trim.pipe.ts
+│   ├── migrations/
+│   ├── main.ts
+│   └── app.module.ts
+├── swagger-screenshot.png
+├── Dockerfile
+├── docker-compose.yml
+└── README.md
+```
+ 
+### Запуск проекту
+```bash
+cp .env.example .env
+docker compose up --build
+```
+ 
+### Swagger UI
+http://localhost:3000/api/docs
+ 
+<img width="3439" height="1389" alt="image" src="https://github.com/user-attachments/assets/514a2883-1079-4f9d-bb25-0d03fd14fbbd" />
+
+### Формат успішної відповіді
+```json
+{
+  "data": { ... },
+  "statusCode": 200,
+  "timestamp": "2025-01-15T10:30:00.000Z"
+}
+```
+ 
+### Формат помилки
+```json
+{
+  "error": {
+	"code": 400,
+	"message": "Validation failed",
+	"details": ["name must be longer..."],
+	"traceId": "a1b2c3..."
+  },
+  "timestamp": "2025-01-15T10:31:00.000Z"
+}
+```
+ 
+### Приклад логів (LoggingInterceptor)
+```text
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [InstanceLoader] TypeOrmModule dependencies initialized +0ms
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [InstanceLoader] UsersModule dependencies initialized +1ms
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [InstanceLoader] AuthModule dependencies initialized +0ms
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [RoutesResolver] AppController {/}: +31ms
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [RouterExplorer] Mapped {/, GET} route +4ms
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [RoutesResolver] CategoriesController {/categories}: +0ms
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [RouterExplorer] Mapped {/categories, POST} route +1ms
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [RouterExplorer] Mapped {/categories, GET} route +0ms
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [RoutesResolver] ProductsController {/api/products}: +1ms
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [RouterExplorer] Mapped {/api/products, POST} route +0ms
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [RouterExplorer] Mapped {/api/products, GET} route +0ms
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [RoutesResolver] AuthController {/auth}: +0ms
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [RouterExplorer] Mapped {/auth/register, POST} route +0ms
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [RouterExplorer] Mapped {/auth/login, POST} route +1ms
+app-1     | [Nest] 1  - 05/06/2026, 6:29:35 PM     LOG [NestApplication] Nest application successfully started +2ms
+```
+ 
+### Тест помилки з traceId
+```text
+{
+  "error": {
+    "code": 404,
+    "message": "Product with ID 999 not found",
+    "traceId": "eff456-gh78-99"
+  },
+  "timestamp": "2026-05-06T17:40:12.000Z"
+}
+```
+## Student
+- Name: Михайлюк Валентин Валентинович
+- Group: 232/1
+ 
+## Практичне заняття №7 — Redis + Pagination + Filtering
+ 
+### Запуск проекту
+```bash
+cp .env.example .env
+docker compose up --build
+docker compose run --rm app npm run seed
+```
+ 
+### API: GET /api/products
+ 
+| Параметр | Тип | Default | Опис |
+|----------|-----|---------|------|
+| page | number | 1 | Номер сторінки |
+| pageSize | number | 10 | Елементів на сторінку (max 100) |
+| sort | string | createdAt | Поле сортування |
+| order | asc/desc | desc | Напрямок |
+| categoryId | number | - | Фільтр за категорією |
+| minPrice | number | - | Мінімальна ціна |
+| maxPrice | number | - | Максимальна ціна |
+| search | string | - | Пошук за назвою (ILIKE) |
+
+ 
+### Тест пагінації
+
+<img width="1372" height="150" alt="Screenshot 2026-05-21 162919" src="https://github.com/user-attachments/assets/2d9ab0c3-83d3-4ae6-aaa2-ce4de6b29dd2" />
+ 
+### Тест фільтрації
+
+<img width="1363" height="82" alt="image" src="https://github.com/user-attachments/assets/9b9b6c67-a9ac-4e42-a87b-44d266ba9125" />
+ 
+### Тест пошуку
+
+<img width="1365" height="67" alt="image" src="https://github.com/user-attachments/assets/cb5fc668-cd1a-4c44-a338-f23dbc858164" />
+ 
+### Тест кешування (Redis)
+
+<img width="1359" height="37" alt="image" src="https://github.com/user-attachments/assets/5e12bf6a-1fab-4c88-b68b-3b9d316ff0b8" />
+ 
+### Тест інвалідації кешу
+
+<img width="833" height="35" alt="image" src="https://github.com/user-attachments/assets/a98e3ea3-bcb1-4a14-af55-d1a305678344" />
+
 
 
 
