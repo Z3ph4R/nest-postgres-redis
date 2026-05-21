@@ -362,29 +362,25 @@ docker compose run --rm app npm run seed
 
  
 ### Тест пагінації
-```text
+
 <img width="1372" height="150" alt="Screenshot 2026-05-21 162919" src="https://github.com/user-attachments/assets/2d9ab0c3-83d3-4ae6-aaa2-ce4de6b29dd2" />
-```
  
 ### Тест фільтрації
-```text
+
 <img width="1363" height="82" alt="image" src="https://github.com/user-attachments/assets/9b9b6c67-a9ac-4e42-a87b-44d266ba9125" />
-```
  
 ### Тест пошуку
-```text
+
 <img width="1365" height="67" alt="image" src="https://github.com/user-attachments/assets/cb5fc668-cd1a-4c44-a338-f23dbc858164" />
-```
  
 ### Тест кешування (Redis)
-```text
+
 <img width="1359" height="37" alt="image" src="https://github.com/user-attachments/assets/5e12bf6a-1fab-4c88-b68b-3b9d316ff0b8" />
-```
  
 ### Тест інвалідації кешу
-```text
+
 <img width="833" height="35" alt="image" src="https://github.com/user-attachments/assets/a98e3ea3-bcb1-4a14-af55-d1a305678344" />
-```
+
 
 
 
