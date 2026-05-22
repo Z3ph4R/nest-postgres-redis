@@ -381,6 +381,85 @@ docker compose run --rm app npm run seed
 
 <img width="833" height="35" alt="image" src="https://github.com/user-attachments/assets/a98e3ea3-bcb1-4a14-af55-d1a305678344" />
 
+## Student
+- Name: Михайлюк Валентин Валентинович
+- Group: 232/1
+ 
+## MiniShop API — Фінальний проєкт
+ 
+REST API інтернет-магазину на NestJS + PostgreSQL + Redis.
+ 
+### Технології
+- NestJS + TypeScript
+- PostgreSQL + TypeORM (міграції, QueryBuilder)
+- Redis (кешування з інвалідацією)
+- JWT автентифікація + RBAC авторизація
+- class-validator + class-transformer
+- Swagger / OpenAPI
+ 
+### Запуск
+```bash
+cp .env.example .env
+docker compose up --build
+docker compose run --rm app npm run seed
+```
+ 
+### Swagger UI
+http://localhost:3000/api/docs
+ 
+### API Endpoints
+ 
+#### Auth
+| Method | URL | Auth | Опис |
+|--------|-----|------|------|
+| POST | /auth/register | - | Реєстрація |
+| POST | /auth/login | - | Логін → JWT |
+ 
+#### Categories
+| Method | URL | Auth | Опис |
+|--------|-----|------|------|
+| GET | /api/categories | - | Список |
+| GET | /api/categories/:id | - | Одна |
+| POST | /api/categories | admin | Створити |
+| PATCH | /api/categories/:id | admin | Оновити |
+| DELETE | /api/categories/:id | admin | Видалити |
+ 
+#### Products
+| Method | URL | Auth | Опис |
+|--------|-----|------|------|
+| GET | /api/products | - | Список + pagination + filter |
+| GET | /api/products/:id | - | Один |
+| POST | /api/products | admin | Створити |
+| PATCH | /api/products/:id | admin | Оновити |
+| DELETE | /api/products/:id | admin | Видалити |
+ 
+#### Orders
+| Method | URL | Auth | Опис |
+|--------|-----|------|------|
+| POST | /api/orders | user | Створити замовлення |
+| GET | /api/orders | user | Мої / Всі (admin) |
+| GET | /api/orders/:id | user | Одне (ownership) |
+| PATCH | /api/orders/:id/status | admin | Змінити статус |
+| DELETE | /api/orders/:id | admin | Видалити |
+ 
+### Тест створення замовлення
+
+<img width="1425" height="1154" alt="image" src="https://github.com/user-attachments/assets/d51658a3-a526-4736-a033-3382469987ab" />
+
+### Тест ownership (403)
+
+<img width="1413" height="795" alt="image" src="https://github.com/user-attachments/assets/9e0f3c6f-1238-45fc-b30a-b2deb2860301" />
+
+### Тест зміни статусу
+
+<img width="1450" height="1163" alt="image" src="https://github.com/user-attachments/assets/b48b325c-c3c4-48e8-a9ba-bef6dbafe037" />
+
+### Тест insufficient stock
+
+<img width="1412" height="1027" alt="image" src="https://github.com/user-attachments/assets/11b42bd8-fa83-49e4-8c69-1ad72ad1afe8" />
+
+
+
 
 
 
