@@ -14,46 +14,67 @@ import { ProductsService } from './products/products.service';
 
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { OrdersModule } from './orders/orders.module';
 
-// Імпорт сутностей
+// Импорт сущностей
 import { Product } from './products/entities/product.entity';
 import { Category } from './categories/category.entity';
+import { Order } from './orders/entities/order.entity';
+import { OrderItem } from './orders/entities/order-item.entity';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({ 
+      isGlobal: true,
+      envFilePath: '.env', 
+    }),
 
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        host: configService.get<string>('DB_HOST'),
-        port: configService.get<number>('DB_PORT'),
-        username: configService.get<string>('DB_USERNAME'),
-        password: configService.get<string>('DB_PASSWORD'),
-        database: configService.get<string>('DB_DATABASE'),
+        host: configService.get<string>('DB_HOST', 'postgres'),
+        port: configService.get<number>('DB_PORT', 5432),
+        username: configService.get<string>('DB_USERNAME', 'postgres'),
+        password: configService.get<string>('DB_PASSWORD', 'postgres'),
+        database: configService.get<string>('DB_DATABASE', 'nestdb'),
+        entities: [Product, Category, Order, OrderItem],
         autoLoadEntities: true,
         synchronize: true,
       }),
     }),
 
+    // РЕШЕНИЕ: Регистрируем репозитории продуктов и категорий для AppModule контекста
     TypeOrmModule.forFeature([Product, Category]),
 
     CacheModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        isGlobal: true,
-        store: redisStore,
-        url: `redis://${configService.get<string>('REDIS_HOST')}:${configService.get<number>('REDIS_PORT')}`,
-      }),
+      useFactory: (configService: ConfigService) => {
+        const redisHost = configService.get<string>('REDIS_HOST', 'redis');
+        const redisPort = configService.get<number>('REDIS_PORT', 6379);
+        return {
+          isGlobal: true, // Делаем кэш глобальным для всех модулей
+          store: redisStore,
+          url: `redis://${redisHost}:${redisPort}`,
+        };
+      },
     }),
 
     UsersModule,
     AuthModule,
+    OrdersModule,
   ],
-  controllers: [AppController, CategoriesController, ProductsController],
-  providers: [AppService, CategoriesService, ProductsService],
+  controllers: [
+    AppController, 
+    CategoriesController, 
+    ProductsController
+  ],
+  providers: [
+    AppService, 
+    CategoriesService, 
+    ProductsService
+  ],
 })
 export class AppModule {}
